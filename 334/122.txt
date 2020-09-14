@@ -1,0 +1,39 @@
+#include<STC12C5A60S2.H> 
+  
+sbit LED=p0^0;	
+sbit ENLED=P1^1;
+sbit R1=P2^0;
+sbit R2=P2^1;
+sbit R3=P2^2;
+
+void main()
+{
+	
+	unsigned char cnt=0;
+	
+                ENLED=0;
+	R1=0;
+	R2=1;
+	R3=1;
+	
+	
+                TMOD=0x01;
+	TH0=0x35;
+	TL0=0x00;
+	TR0=1;
+	
+while(1)                
+  {
+		if(1==TF0)
+		{
+			TF0=0;
+			TH0=0x35;
+			TL0=0X00;
+			cnt++;
+			if(cnt>=50)	
+		{
+			cnt=0;
+			LED=~LED;
+		}
+	}
+}
